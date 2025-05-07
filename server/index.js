@@ -19,6 +19,18 @@ app.get('/', (req, res) => {
   res.send('Hi hello ...'); // Test message to check if server is running
 });
 
+app.post('/api/products', async (req, res) => {
+  const { name, price, description, imageUrl } = req.body
+
+  // Insert into DB
+  const result = await pool.query(
+    'INSERT INTO products (name, price, description, image_url) VALUES ($1, $2, $3, $4) RETURNING *',
+    [name, price, description, imageUrl]
+  )
+
+  res.status(201).json(result.rows[0])
+})
+
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
