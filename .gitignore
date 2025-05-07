@@ -1,0 +1,23 @@
+# .gitignore
+
+# Node modules
+node_modules/
+server/node_modules/
+frontend/node_modules/
+
+# Environment files
+.env
+frontend/.env
+server/.env
+
+# Build output
+frontend/build/
+server/build/
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# IDE/editor config
+.vscode/
+.idea/
