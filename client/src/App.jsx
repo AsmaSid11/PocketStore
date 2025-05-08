@@ -5,12 +5,14 @@ import { Routes, Route } from 'react-router-dom'
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-zinc-900 text-gray-100">
       <Navbar />
+      <main className="p-4 max-w-5xl mx-auto">
       <Routes>
         <Route path="/" element={<ProductSubmission />} />
         <Route path="/my-products" element={<MyProducts />} />
       </Routes>
+      </main>
     </div>
   )
 }
