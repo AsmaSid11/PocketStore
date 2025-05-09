@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 function MyProducts() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     setLoading(true);
@@ -71,10 +72,12 @@ function MyProducts() {
                   {product.name}
                 </h2>
                 <p className="text-2xl font-bold text-purple-300 mb-3">₹ {product.price}</p>
-                <p className="text-gray-300 text-sm leading-relaxed">{product.description}</p>
                 
                 <div className="mt-4 pt-4 border-t border-zinc-700">
-                  <button className="w-full bg-gradient-to-r from-purple-500 to-cyan-400 text-white py-2 rounded-lg font-semibold hover:opacity-90 transition">
+                  <button 
+                    onClick={() => setSelectedProduct(product)}
+                    className="w-full bg-gradient-to-r from-purple-500 to-cyan-400 text-white py-2 rounded-lg font-semibold hover:opacity-90 transition"
+                  >
                     View Details
                   </button>
                 </div>
@@ -83,6 +86,59 @@ function MyProducts() {
           ))}
         </div>
       )}
+
+      {/* Product Details Modal */}
+      <AnimatePresence>
+        {selectedProduct && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50"
+            onClick={() => setSelectedProduct(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-zinc-800 rounded-xl shadow-2xl max-w-lg w-full overflow-hidden"
+              onClick={e => e.stopPropagation()}
+            >
+              {selectedProduct.image_url && (
+                <div className="relative h-64">
+                  <img
+                    src={`http://localhost:5000${selectedProduct.image_url}`}
+                    alt={selectedProduct.name}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent"></div>
+                </div>
+              )}
+              
+              <div className="p-6">
+                <div className="flex justify-between items-start mb-4">
+                  <h2 className="text-3xl font-bold text-cyan-400">{selectedProduct.name}</h2>
+                  <button
+                    onClick={() => setSelectedProduct(null)}
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+                
+                <p className="text-3xl font-bold text-purple-300 mb-4">₹ {selectedProduct.price}</p>
+                
+                <div className="space-y-2">
+                  <h3 className="text-lg font-semibold text-purple-300">Description</h3>
+                  <p className="text-gray-300 leading-relaxed">{selectedProduct.description}</p>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
