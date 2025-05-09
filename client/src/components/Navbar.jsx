@@ -8,6 +8,14 @@ function Navbar() {
       ? "text-cyan-400 border-b-2 border-cyan-400 pb-1"
       : "text-gray-300 hover:text-cyan-400 transition";
 
+  const scrollToContact = (e) => {
+    e.preventDefault();
+    const contactSection = document.getElementById('contact-section');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <nav className="bg-zinc-900 shadow flex justify-between items-center px-6 h-16 sticky top-0 z-50">
       <div className="flex items-center gap-3">
@@ -31,6 +39,13 @@ function Navbar() {
         <Link className={linkStyle("/my-products")} to="/my-products">
           My Products
         </Link>
+        <a
+          href="#contact-section"
+          onClick={scrollToContact}
+          className="text-gray-300 hover:text-cyan-400 transition"
+        >
+          Contact Us
+        </a>
       </div>
     </nav>
   );

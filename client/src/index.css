@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
-    @apply bg-gray-900 text-white;
-  }
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-zinc-900 text-white font-sans;
+  margin: 0;
+  padding: 0;
+}
