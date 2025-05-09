@@ -12,7 +12,7 @@ function MyProducts() {
 
   useEffect(() => {
     setLoading(true);
-    axios.get('http://localhost:5000/api/products')
+    axios.get('https://pocketstore-ubxn.onrender.com/api/products')
       .then(res => setProducts(res.data))
       .catch(err => console.error(err))
       .finally(() => setLoading(false));
@@ -131,7 +131,7 @@ function MyProducts() {
                 <div className="relative overflow-hidden">
                   {product.image_url ? (
                     <img
-                      src={`http://localhost:5000${product.image_url}`}
+                      src={`https://pocketstore-ubxn.onrender.com${product.image_url}`}
                       alt={product.name}
                       className="w-full h-56 object-cover transform group-hover:scale-110 transition-transform duration-300"
                     />
@@ -216,7 +216,7 @@ function MyProducts() {
               {selectedProduct.image_url && (
                 <div className="relative h-64">
                   <img
-                    src={`http://localhost:5000${selectedProduct.image_url}`}
+                    src={`https://pocketstore-ubxn.onrender.com${selectedProduct.image_url}`}
                     alt={selectedProduct.name}
                     className="w-full h-full object-cover"
                   />
