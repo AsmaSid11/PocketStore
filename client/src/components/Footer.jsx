@@ -12,7 +12,7 @@ const Footer = () => {
               Pocket Store
             </div>
             <p className="text-sm text-blue-100">
-              Your one-stop destination for all your shopping needs. Quality products, great prices, and excellent service.
+            Your Everyday Carry & Tech Accessories shop.
             </p>
             <div className="flex space-x-4">
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-200 transition-colors">
@@ -60,11 +60,11 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-center space-x-2">
                 <FaMapMarkerAlt className="text-blue-200" />
-                <span className="text-blue-100">123 Shopping Street, Retail City, RC 12345</span>
+                <span className="text-blue-100">123 Shopping Street, New Delhi, India</span>
               </li>
               <li className="flex items-center space-x-2">
                 <FaPhone className="text-blue-200" />
-                <span className="text-blue-100">+1 (555) 123-4567</span>
+                <span className="text-blue-100">+91 9876543210</span>
               </li>
               <li className="flex items-center space-x-2">
                 <FaEnvelope className="text-blue-200" />
