@@ -24,5 +24,23 @@ A simple e-commerce web app with two main tabs: Product Submission and My Produc
 3. Run the frontend:  
    `npm run dev`
 
+## What's Working
+- Product Submission Form
+  - Add new products with title, description, price, and image
+  - Form validation for required fields
+  - Image upload functionality
+- My Products Page
+  - View all submitted products
+  - Delete products
+  - Responsive grid layout
+- User Interface
+  - Clean and modern design
+  - Responsive layout for all screen sizes
+  - Navigation between tabs
+- Backend Features
+  - RESTful API endpoints for CRUD operations
+  - PostgreSQL database integration
+  - Image storage and management
+
 ## License
 MIT License
