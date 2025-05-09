@@ -8,6 +8,7 @@ function MyProducts() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [wishlistItems, setWishlistItems] = useState(new Set());
   const [cartItems, setCartItems] = useState(new Set());
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     setLoading(true);
@@ -41,6 +42,14 @@ function MyProducts() {
     });
   };
 
+  const filteredProducts = products.filter(product => {
+    const searchLower = searchQuery.toLowerCase();
+    return (
+      product.name.toLowerCase().includes(searchLower) ||
+      product.description.toLowerCase().includes(searchLower)
+    );
+  });
+
   if (loading) {
     return (
       <div className="bg-zinc-900 min-h-screen flex items-center justify-center">
@@ -59,18 +68,58 @@ function MyProducts() {
         My Products
       </motion.h1>
 
-      {products.length === 0 ? (
+      {/* Search Box */}
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="max-w-2xl mx-auto mb-8"
+      >
+        <div className="relative">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search products by name or description..."
+            className="w-full px-6 py-4 bg-zinc-800 rounded-xl border-2 border-cyan-500/30 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 outline-none transition text-white placeholder-gray-400"
+          />
+          <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+        </div>
+        {searchQuery && (
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-sm text-gray-400 mt-2 text-center"
+          >
+            Found {filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'}
+          </motion.p>
+        )}
+      </motion.div>
+
+      {filteredProducts.length === 0 ? (
         <motion.div 
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           className="text-center text-gray-400 bg-zinc-800/50 p-8 rounded-xl max-w-md mx-auto"
         >
-          <p className="text-xl mb-4">No products added yet.</p>
-          <p className="text-sm text-gray-500">Start by adding your first product!</p>
+          {searchQuery ? (
+            <>
+              <p className="text-xl mb-4">No products found</p>
+              <p className="text-sm text-gray-500">Try different search terms</p>
+            </>
+          ) : (
+            <>
+              <p className="text-xl mb-4">No products added yet.</p>
+              <p className="text-sm text-gray-500">Start by adding your first product!</p>
+            </>
+          )}
         </motion.div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {products.map((product, index) => (
+          {filteredProducts.map((product, index) => (
             <motion.div
               key={product.id}
               initial={{ opacity: 0, y: 20 }}
