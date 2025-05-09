@@ -1,35 +1,36 @@
-import { Link, useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { Link, useLocation } from "react-router-dom";
 
 function Navbar() {
-  const [darkMode, setDarkMode] = useState(true); // Default to dark
   const location = useLocation();
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [darkMode]);
 
   const linkStyle = (path) =>
     location.pathname === path
-      ? 'text-cyan-400 border-b-2 border-cyan-400 pb-1'
-      : 'text-gray-300 hover:text-cyan-400';
+      ? "text-cyan-400 border-b-2 border-cyan-400 pb-1"
+      : "text-gray-300 hover:text-cyan-400 transition";
 
   return (
-    <nav className="bg-zinc-800 dark:bg-zinc-900 shadow flex justify-between items-center px-6 py-4 rounded-b-lg">
-      <h1 className="text-2xl font-bold text-cyan-400">PocketStore</h1>
+    <nav className="bg-zinc-900 shadow flex justify-between items-center px-6 h-16 sticky top-0 z-50">
+      <div className="flex items-center gap-3">
+        <img
+          src="/images/logo.png"
+          alt="PocketStore Logo"
+          className="h-20 w-30 object-contain"
+        />
+        {/* <h1 className="text-2xl font-bold text-cyan-400">PocketStore</h1> */}
+      </div>
       <div className="flex gap-6 items-center">
-        <Link className={`${linkStyle('/')}`} to="/">Product Submission</Link>
-        <Link className={`${linkStyle('/my-products')}`} to="/my-products">My Products</Link>
-        <button
-          onClick={() => setDarkMode(!darkMode)}
-          className="bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white px-3 py-1 rounded transition"
+        <Link className={linkStyle("/")} to="/">
+          Home
+        </Link>
+        <Link
+          className={linkStyle("/product-submission")}
+          to="/product-submission"
         >
-          {darkMode ? '☀️ Light' : '🌙 Dark'}
-        </button>
+          Product Submission
+        </Link>
+        <Link className={linkStyle("/my-products")} to="/my-products">
+          My Products
+        </Link>
       </div>
     </nav>
   );

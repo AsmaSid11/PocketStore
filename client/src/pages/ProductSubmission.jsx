@@ -1,90 +1,93 @@
-import { useState } from 'react'
-import axios from 'axios'
+import { useState } from 'react';
+import axios from 'axios';
 
 function ProductSubmission() {
   const [formData, setFormData] = useState({
     name: '',
     price: '',
     description: '',
-    imageUrl: ''
-  })
+    image_url: '',
+  });
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
+  const handleChange = e => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-
-    // Validation (optional)
-    if (!formData.name || !formData.price || !formData.description) {
-      alert('Please fill all required fields.')
-      return
+  const handleSubmit = async e => {
+    e.preventDefault();
+    try {
+      await axios.post('http://localhost:5000/api/products/add', formData);
+      alert('Product added successfully!');
+      setFormData({ name: '', price: '', description: '', image_url: '' });
+    } catch (error) {
+      alert('Failed to add product');
     }
-
-    axios.post('http://localhost:5000/api/products/add', formData)
-      .then(res => {
-        alert('Product added successfully!')
-        setFormData({ name: '', price: '', description: '', imageUrl: '' }) // Clear form
-      })
-      .catch(err => {
-        console.error('Error adding product:', err)
-        alert('Failed to add product')
-      })
-  }
+  };
 
   return (
-    <div className="p-6 max-w-xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4 text-blue-400">Submit a Product</h1>
+    <div className="bg-zinc-900 min-h-screen flex justify-center items-center px-4 py-10">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-zinc-800 rounded-xl shadow-lg max-w-md w-full p-8 text-white border border-cyan-500/30"
+      >
+        <h1 className="text-3xl font-bold text-cyan-400 text-center mb-6">Add Product</h1>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="text"
-          name="name"
-          placeholder="Product Name"
-          value={formData.name}
-          onChange={handleChange}
-          className="w-full p-2 rounded bg-gray-700 text-white"
-          required
-        />
+        <div className="mb-4">
+          <label className="block text-purple-300 mb-1">Product Name</label>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            className="w-full px-3 py-2 bg-zinc-700 rounded border border-purple-500/30 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 outline-none transition"
+          />
+        </div>
 
-        <input
-          type="number"
-          name="price"
-          placeholder="Price (in ₹)"
-          value={formData.price}
-          onChange={handleChange}
-          className="w-full p-2 rounded bg-gray-700 text-white"
-          required
-        />
+        <div className="mb-4">
+          <label className="block text-purple-300 mb-1">Price (₹)</label>
+          <input
+            type="number"
+            name="price"
+            value={formData.price}
+            onChange={handleChange}
+            required
+            className="w-full px-3 py-2 bg-zinc-700 rounded border border-purple-500/30 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 outline-none transition"
+          />
+        </div>
 
-        <textarea
-          name="description"
-          placeholder="Description"
-          value={formData.description}
-          onChange={handleChange}
-          className="w-full p-2 rounded bg-gray-700 text-white"
-          required
-        ></textarea>
+        <div className="mb-4">
+          <label className="block text-purple-300 mb-1">Description</label>
+          <textarea
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            rows="3"
+            required
+            className="w-full px-3 py-2 bg-zinc-700 rounded border border-purple-500/30 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 outline-none transition"
+          ></textarea>
+        </div>
 
-        <input
-          type="text"
-          name="imageUrl"
-          placeholder="Image URL (optional)"
-          value={formData.imageUrl}
-          onChange={handleChange}
-          className="w-full p-2 rounded bg-gray-700 text-white"
-        />
+        <div className="mb-6">
+          <label className="block text-purple-300 mb-1">Image URL</label>
+          <input
+            type="text"
+            name="image_url"
+            value={formData.image_url}
+            onChange={handleChange}
+            className="w-full px-3 py-2 bg-zinc-700 rounded border border-purple-500/30 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 outline-none transition"
+          />
+        </div>
 
-        <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+        <button
+          type="submit"
+          className="w-full bg-gradient-to-r from-purple-500 to-cyan-400 text-white py-2 rounded hover:opacity-90 transition font-semibold"
+        >
           Submit Product
         </button>
       </form>
     </div>
-  )
+  );
 }
 
-export default ProductSubmission
+export default ProductSubmission;
