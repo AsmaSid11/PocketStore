@@ -6,6 +6,8 @@ function MyProducts() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [wishlistItems, setWishlistItems] = useState(new Set());
+  const [cartItems, setCartItems] = useState(new Set());
 
   useEffect(() => {
     setLoading(true);
@@ -14,6 +16,30 @@ function MyProducts() {
       .catch(err => console.error(err))
       .finally(() => setLoading(false));
   }, []);
+
+  const toggleWishlist = (productId) => {
+    setWishlistItems(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(productId)) {
+        newSet.delete(productId);
+      } else {
+        newSet.add(productId);
+      }
+      return newSet;
+    });
+  };
+
+  const toggleCart = (productId) => {
+    setCartItems(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(productId)) {
+        newSet.delete(productId);
+      } else {
+        newSet.add(productId);
+      }
+      return newSet;
+    });
+  };
 
   if (loading) {
     return (
@@ -65,6 +91,38 @@ function MyProducts() {
                   </div>
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                
+                {/* Action Buttons */}
+                <div className="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => toggleWishlist(product.id)}
+                    className={`p-2 rounded-full shadow-lg transition-colors ${
+                      wishlistItems.has(product.id)
+                        ? 'bg-red-500 text-white'
+                        : 'bg-zinc-800/80 text-gray-300 hover:bg-red-500 hover:text-white'
+                    }`}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+                    </svg>
+                  </motion.button>
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => toggleCart(product.id)}
+                    className={`p-2 rounded-full shadow-lg transition-colors ${
+                      cartItems.has(product.id)
+                        ? 'bg-cyan-500 text-white'
+                        : 'bg-zinc-800/80 text-gray-300 hover:bg-cyan-500 hover:text-white'
+                    }`}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
+                    </svg>
+                  </motion.button>
+                </div>
               </div>
               
               <div className="p-6">
@@ -133,6 +191,33 @@ function MyProducts() {
                 <div className="space-y-2">
                   <h3 className="text-lg font-semibold text-purple-300">Description</h3>
                   <p className="text-gray-300 leading-relaxed">{selectedProduct.description}</p>
+                </div>
+
+                <div className="mt-6 flex gap-3">
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => toggleWishlist(selectedProduct.id)}
+                    className={`flex-1 py-3 rounded-lg font-semibold transition-colors ${
+                      wishlistItems.has(selectedProduct.id)
+                        ? 'bg-red-500 text-white'
+                        : 'bg-zinc-700 text-gray-300 hover:bg-red-500 hover:text-white'
+                    }`}
+                  >
+                    {wishlistItems.has(selectedProduct.id) ? 'Remove from Wishlist' : 'Add to Wishlist'}
+                  </motion.button>
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => toggleCart(selectedProduct.id)}
+                    className={`flex-1 py-3 rounded-lg font-semibold transition-colors ${
+                      cartItems.has(selectedProduct.id)
+                        ? 'bg-cyan-500 text-white'
+                        : 'bg-gradient-to-r from-purple-500 to-cyan-400 text-white hover:opacity-90'
+                    }`}
+                  >
+                    {cartItems.has(selectedProduct.id) ? 'Remove from Cart' : 'Add to Cart'}
+                  </motion.button>
                 </div>
               </div>
             </motion.div>
