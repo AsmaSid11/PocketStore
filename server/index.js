@@ -1,6 +1,7 @@
 // server/index.js
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config(); // For environment variables
 
 const productRoutes = require('./routes/productRoutes'); // Import product routes
@@ -10,6 +11,7 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json()); // To parse incoming JSON requests
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
 app.use('/api/products', productRoutes); // Routes for products

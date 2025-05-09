@@ -3,7 +3,8 @@ const pool = require('../config/db'); // Import PostgreSQL connection pool
 
 // Add a new product to the database
 const addProduct = async (req, res) => {
-  const { name, price, description, image_url } = req.body;
+  const { name, price, description } = req.body;
+  const image_url = req.file ? `/uploads/${req.file.filename}` : null;
 
   try {
     const result = await pool.query(
