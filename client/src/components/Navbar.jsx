@@ -16,13 +16,21 @@ function Navbar() {
     }
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <nav className="bg-zinc-900 shadow flex justify-between items-center px-6 h-16 sticky top-0 z-50">
       <div className="flex items-center gap-3">
         <img
           src="/images/logo.png"
           alt="PocketStore Logo"
-          className="h-20 w-30 object-contain"
+          className="h-20 w-30 object-contain cursor-pointer hover:opacity-90 transition-opacity"
+          onClick={scrollToTop}
         />
         {/* <h1 className="text-2xl font-bold text-cyan-400">PocketStore</h1> */}
       </div>
