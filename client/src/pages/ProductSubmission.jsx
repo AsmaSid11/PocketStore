@@ -44,7 +44,7 @@ function ProductSubmission() {
         submitData.append('image', selectedFile);
       }
 
-      await axios.post('http://localhost:5000/api/products/add', submitData, {
+      await axios.post('https://pocketstore-01uq.onrender.com/api/products/add', submitData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
