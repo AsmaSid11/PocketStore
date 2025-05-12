@@ -3,6 +3,10 @@
 ## Description
 A simple e-commerce web app with two main tabs: Product Submission and My Products.
 
+### Live Demo
+- Frontend: [https://pocketstore-frontend.vercel.app](https://pocketstore-frontend.vercel.app)
+- Backend API: [https://pocketstore-01uq.onrender.com](https://pocketstore-01uq.onrender.com)
+
 ## Tech Stack
 - Frontend: React (Vite)
 - Backend: Node.js with Express
