@@ -33,6 +33,8 @@ A simple e-commerce web app with two main tabs: Product Submission and My Produc
   - View all submitted products
   - Delete products
   - Responsive grid layout
+- Simple Search
+   - Search a product with ease
 - User Interface
   - Clean and modern design
   - Responsive layout for all screen sizes
