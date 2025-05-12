@@ -18,7 +18,7 @@ app.use('/api/products', productRoutes); // Routes for products
 
 //print test message
 app.get('/', (req, res) => {
-  res.send('Hi hello ...'); // Test message to check if server is running
+  res.send('This is the server side of PocketStore ;)'); // Test message to check if server is running
 });
 
 app.post('/api/products', async (req, res) => {
