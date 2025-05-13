@@ -1,13 +1,12 @@
-// server/config/db.js
-const { Pool } = require('pg'); // Import Pool from pg
-require('dotenv').config(); // For environment variables
+const { Pool } = require('pg');
+require('dotenv').config();
 
 // Set up the PostgreSQL connection pool
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL, // Connect using DATABASE_URL from .env
+  connectionString: process.env.DATABASE_URL, 
   ssl: {
-    rejectUnauthorized: false, // Disable SSL certificate validation
+    rejectUnauthorized: false, 
   },
 });
 
-module.exports = pool; // Export the pool to use in controllers
+module.exports = pool;

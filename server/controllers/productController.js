@@ -1,5 +1,4 @@
-// server/controllers/productController.js
-const pool = require('../config/db'); // Import PostgreSQL connection pool
+const pool = require('../config/db'); 
 
 // Add a new product to the database
 const addProduct = async (req, res) => {

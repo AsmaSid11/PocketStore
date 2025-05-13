@@ -1,4 +1,3 @@
-// server/routes/productRoutes.js
 const express = require('express');
 const { addProduct, getProducts } = require('../controllers/productController');
 const upload = require('../config/upload');

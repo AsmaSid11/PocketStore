@@ -3,9 +3,9 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
-require('dotenv').config(); // For environment variables
+require('dotenv').config();
 
-const productRoutes = require('./routes/productRoutes'); // Import product routes
+const productRoutes = require('./routes/productRoutes');
 
 const app = express();
 
@@ -17,13 +17,13 @@ if (!fs.existsSync(uploadsDir)) {
 
 // Middleware
 app.use(cors());
-app.use(express.json()); // To parse incoming JSON requests
+app.use(express.json()); 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
-app.use('/api/products', productRoutes); // Routes for products
+app.use('/api/products', productRoutes); // Routes for displaying all products - MyProducts
 
-//print test message
+
 app.get('/', (req, res) => {
   res.send('This is the server side of PocketStore ;)'); // Test message to check if server is running
 });
