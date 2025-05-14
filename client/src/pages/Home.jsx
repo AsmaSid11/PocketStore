@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import heroImg from '/images/logo.png';  // adjust path if needed
+import heroImg from '/images/logo.png';  
 
 function Home() {
   return (
