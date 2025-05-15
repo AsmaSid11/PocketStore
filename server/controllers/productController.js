@@ -28,4 +28,25 @@ const getProducts = async (req, res) => {
   }
 };
 
-module.exports = { addProduct, getProducts }; // Export controller functions
+// Delete a product by ID
+const deleteProduct = async (req, res) => {
+  try {
+    const id = parseInt(req.params.id); // Ensure it's an integer
+    console.log("Request to delete product with ID:", id);
+
+    const result = await pool.query('DELETE FROM products WHERE id = $1 RETURNING *', [id]);
+    console.log("Delete result:", result);
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    res.json({ message: 'Product deleted successfully' });
+  } catch (error) {
+    console.error("Error deleting product:", error);
+    res.status(500).json({ message: 'Error deleting product', error });
+  }
+};
+
+
+module.exports = { addProduct, getProducts, deleteProduct }; // Export controller functions
