@@ -49,4 +49,4 @@ const deleteProduct = async (req, res) => {
 };
 
 
-module.exports = { addProduct, getProducts, deleteProduct }; // Export controller functions
+module.exports = { addProduct, getProducts, deleteProduct };
